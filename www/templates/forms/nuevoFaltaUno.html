@@ -1,0 +1,55 @@
+<ion-view view-title="Falta Uno!">
+  <ion-content>
+      <form class="list" ng-show="showForm">
+          
+          <div class="item item-divider">¿A quien Contactan?</div>
+          <ion-toggle ng-model="falta.soyYo">
+              A mi
+          </ion-toggle>          
+          <div ng-hide="falta.soyYo">
+              <label class="item item-input">
+                  <input type="text" placeholder="Nombre Completo" ng-model="falta.nombreCompleto">
+              </label>
+              
+              <label class="item item-input">
+                  <input type="text" placeholder="Telefono (Opcional)" ng-model="falta.telefono">
+              </label>
+              
+              <label class="item item-input">
+                  <input type="text" placeholder="Mail (Opcional)" ng-model="falta.mail">
+              </label>
+          </div>
+          
+          <div class="item item-divider">¿Que Tipo De Cancha Es?</div>
+            <ion-radio ng-model="falta.cancha" ng-value="5">Cancha de 5</ion-radio>
+            <ion-radio ng-model="falta.cancha" ng-value="7">Cancha de 7</ion-radio>
+            <ion-radio ng-model="falta.cancha" ng-value="11">Cancha de 11</ion-radio>
+
+          
+          <div class="item item-divider">¿Donde Queda?</div>
+          <button class="button button-block" ng-click="showMap()">Mostrar Mapa</button>
+          <div ng-show="showAddress">
+              <label class="item item-input">
+                  <input type="text" placeholder="Direccion" ng-model="falta.direccion">
+              </label>
+              <label class="item item-input">
+                <input type="text" placeholder="Latitud" ng-model="falta.lat">
+              </label>
+              <label class="item item-input">
+                <input type="text" placeholder="Longitud" ng-model="falta.lng">
+              </label>
+          </div>
+          
+          <div class="padding">
+              <button class="button button-block" ng-click="submit()">Checkin</button>
+          </div>
+      </form>
+<!--
+
+      <div ng-show="showForm">
+          <pre ng-bind="falta | json"></pre> 
+          <a href="#/event/faltas">View faltas</a>
+      </div>
+-->
+  </ion-content>
+</ion-view>
