@@ -1,7 +1,7 @@
 'use strict';
+var allApp = angular.module('starter.controllers', ['ionic', 'angular-datepicker']);
 
-angular.module('starter.controllers', ['ionic'])
-
+allApp
 .controller('DashCtrl', function($scope, $state, $ionicLoading, $ionicModal) {
 
     $scope.goToMap = function(){
@@ -21,121 +21,20 @@ angular.module('starter.controllers', ['ionic'])
     $scope.hide = function(){
         $ionicLoading.hide();
     };
-
-})
-
-.controller('CrearFaltaUnoCtrl', function($scope, $ionicModal){
-    if($scope.falta == undefined){
-        $scope.falta = {};
-    }
     
-    $scope.showForm = true;
+    $scope.date = new Date();
+    $scope.time = new Date();
     
-    $scope.shirtSizes = [
-    { text: 'Large', value: 'L' },
-    { text: 'Medium', value: 'M' },
-    { text: 'Small', value: 'S' }
-    ];
-
-    $scope.falta = {};
-    $scope.submit = function() {
-        
-        if(!$scope.falta.firstname) {
-          alert('Info required');
-          return;
+    $scope.options = {
+        format: 'yyyy-mm-dd', // ISO formatted date
+        onClose: function(e) {
+            // do something when the picker closes   
         }
-        
-        $scope.showForm = false;
-        $scope.faltas.push($scope.falta);
-    };
-    
-    /*Mapa*/
-    
-    
-    $scope.showMap = function() {
-        
-        
-        $ionicModal.fromTemplateUrl('templates/map/map-modal.html', function(modal) {
-            $scope.settingsModal = modal;
-            modal.acceptMap = function(){
-                //console.log("Funciona");
-                
-                //var markers = $('#g-map').gmap('get','markers');
-                //console.log(markers);
-            }
-            $scope.markers = [];
-            $scope.settingsModal.show();
-            
-            function crearMapa(posicion){
-               var mapOptions = {
-                        zoom: 15,
-                        center: posicion,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    }
-                
-                var infoWindow = new google.maps.InfoWindow();
-                
-                $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-                
-                google.maps.event.addListener($scope.map, 'click', function(event) {
-                    createMarker(event.latLng);
-                });
-                
-                var createMarker = function (info){
-                    var marker = new google.maps.Marker({
-                        map: $scope.map,
-                        position: info,
-                        icon: 'img/icons/markers/pin1.png'
-                    });
-                    //marker.content = '<div class="infoWindowContent">' + info.desc + '</div>';
+    }
 
-                    google.maps.event.addListener(marker, 'click', function(){
-                        infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
-                        infoWindow.open($scope.map, marker);
-                    });
-                    
-                    for(var iM = 0; iM < $scope.markers.length; iM ++){
-                        $scope.markers[iM].setMap(null);
-                    }
-                    
-                    $scope.markers = [];
-                    $scope.markers.push(marker);
-                    
-                    var geocoder = new google.maps.Geocoder();
-                    
-                    geocoder.geocode({
-                        "latLng": info
-                    }, 
-                    function (results, status) {
-                        console.log(results, status);
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            console.log(results);
-                            var lat = results[0].geometry.location.lat(),
-                                lng = results[0].geometry.location.lng(),
-                                placeName = results[0].formatted_address,
-                                latlng = new google.maps.LatLng(lat, lng);
-                            
-                            $scope.falta.direccion = placeName;
-                            $scope.falta.lat = lat;
-                            $scope.falta.lng = lng;
-                            
-                            $scope.showAddress = true;
-                        }
-                    });
-                };
-            }
-            
-            $scope.openInfoWindow = function(e, selectedMarker){
-                e.preventDefault();
-                google.maps.event.trigger(selectedMarker, 'click');
-            }
-            
-            navigator.geolocation.getCurrentPosition(function(pos) {
-                crearMapa(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));    
-            });
-        });
-    };
 })
+
+
 
 .controller('FindInMapCtrl', function($scope){
     console.log("paso por acá");
@@ -252,7 +151,8 @@ angular.module('starter.controllers', ['ionic'])
                             float: 'left',
                             width: ($($element).width() - $(findMe).width() - 30)
                         });
-
+                    
+                    
 
                     var autocomplete = new google.maps.places.Autocomplete($(eAutoComplete)[0], {});
                     google.maps.event.addListener(autocomplete, 'place_changed', function() {

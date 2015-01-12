@@ -2,54 +2,92 @@
   <ion-content>
       <form class="list" ng-show="showForm">
           
-          <div class="item item-divider">¿A quien Contactan?</div>
-          <ion-toggle ng-model="falta.soyYo">
+          <div class="item item-divider">Datos de Contacto</div>
+          <ion-toggle ng-model="partido.soyYo" checked>
               A mi
-          </ion-toggle>          
-          <div ng-hide="falta.soyYo">
+          </ion-toggle>
+          <div ng-hide="partido.soyYo">
               <label class="item item-input">
-                  <input type="text" placeholder="Nombre Completo" ng-model="falta.nombreCompleto">
+                  <input type="text" placeholder="Nombre Completo" ng-model="partido.nombreCompleto">
               </label>
               
               <label class="item item-input">
-                  <input type="text" placeholder="Telefono (Opcional)" ng-model="falta.telefono">
+                  <input type="text" placeholder="Telefono" ng-model="partido.telefono">
               </label>
               
               <label class="item item-input">
-                  <input type="text" placeholder="Mail (Opcional)" ng-model="falta.mail">
+                  <input type="text" placeholder="Mail (Opcional)" ng-model="partido.mail">
               </label>
           </div>
           
-          <div class="item item-divider">¿Que Tipo De Cancha Es?</div>
-            <ion-radio ng-model="falta.cancha" ng-value="5">Cancha de 5</ion-radio>
-            <ion-radio ng-model="falta.cancha" ng-value="7">Cancha de 7</ion-radio>
-            <ion-radio ng-model="falta.cancha" ng-value="11">Cancha de 11</ion-radio>
+          <div class="item item-divider">Datos del Partido</div>
+          
+          <label class="item item-input item-select">
+              <div class="input-label">
+                  Tipo
+              </div>
+              <select ng-model="partido.tipoCancha">
+                  <option ng-value="5" selected>Cancha de 5</option>
+                  <option ng-value="7">Cancha de 7</option>
+                  <option ng-value="11">Cancha de 11</option>
+              </select>
+          </label>
+          
+          <label class="item item-input item-select">
+              <div class="input-label">
+                  ¿Cuantos Faltan?
+              </div>
+              
+              <select ng-model="partido.faltantes">
+                  <option ng-repeat="numero in cuantosFaltan" value="numero">{{numero}}</option>
+              </select>
+
+          </label>
+          
+<!--          <label class="item item-input item-date">-->
+              <div class="input-label">
+                  ¿Cuando?
+              </div>
+              
+              <ion-list data-tap-disabled="true">
+                  <input type="text" pick-a-date="date" placeholder="Select Date" pick-a-date-options="options" style="with: 200px;"  /> {{ date }}
+                  <input type="text" pick-a-time="time" placeholder="Select Time" pick-a-time-options="options" /> {{ time }}
+              </ion-list>
+<!--          </label>-->
+          
+          <label class="item item-input item-select">
+              <div class="input-label">
+                  ¿Cuando es?
+              </div>
+              <select ng-model="partido.tipoCancha">
+                  <option ng-value="5" selected>Cancha de 5</option>
+                  <option ng-value="7">Cancha de 7</option>
+                  <option ng-value="11">Cancha de 11</option>
+              </select>
+          </label>
 
           
           <div class="item item-divider">¿Donde Queda?</div>
-          <button class="button button-block" ng-click="showMap()">Mostrar Mapa</button>
-          <div ng-show="showAddress">
-              <label class="item item-input">
-                  <input type="text" placeholder="Direccion" ng-model="falta.direccion">
+          <div class="item item-input-inset">
+              <label class="item-input-wrapper">
+                  <input type="text" placeholder="Direccion" ng-model="partido.ubicacion.direccion" ng-change="onChangeAdress()">
               </label>
-              <label class="item item-input">
-                <input type="text" placeholder="Latitud" ng-model="falta.lat">
-              </label>
-              <label class="item item-input">
-                <input type="text" placeholder="Longitud" ng-model="falta.lng">
-              </label>
+              <button class="button button-small ion-android-locate" ng-click="showMap()">
+              </button>
+              
+              <input type="hidden" placeholder="Latitud" ng-model="partido.ubicacion.lat">
+              <input type="hidden" placeholder="Latitud" ng-model="partido.ubicacion.lng">
           </div>
           
           <div class="padding">
               <button class="button button-block" ng-click="submit()">Checkin</button>
           </div>
       </form>
-<!--
+
 
       <div ng-show="showForm">
-          <pre ng-bind="falta | json"></pre> 
-          <a href="#/event/faltas">View faltas</a>
+          <pre ng-bind="partido | json"></pre> 
+          <a href="#/event/partidos">View partidos</a>
       </div>
--->
   </ion-content>
 </ion-view>

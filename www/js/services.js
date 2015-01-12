@@ -1,5 +1,6 @@
-angular.module('starter.services', [])
+var allServices = angular.module('starter.services', []);
 
+allServices
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 

@@ -1,0 +1,4 @@
+allServices
+.factory('Partidos', function(){
+    
+});
