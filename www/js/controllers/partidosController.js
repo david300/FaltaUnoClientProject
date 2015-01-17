@@ -6,6 +6,15 @@ allApp.controller('CrearFaltaUnoCtrl', function($scope, $ionicModal){
         };
     }
     
+    $scope.options = 
+    {
+        format: 'dd-mm-yyyy', // ISO formatted date
+        onClose: function(e) {
+            // do something when the picker closes   
+        }
+    };
+
+    
     $scope.cuantosFaltan = [];
     for(var cf = 1; cf <= 12; cf++) {
         $scope.cuantosFaltan.push(cf);
