@@ -1,4 +1,4 @@
-allApp.controller('CrearFaltaUnoCtrl', function($scope, $ionicModal){
+allApp.controller('CrearFaltaUnoCtrl', function($scope, $ionicModal, $ionicPopup, $ionicLoading, Partidos){
     
     if($scope.partido == undefined){
         $scope.partido = {
@@ -29,13 +29,44 @@ allApp.controller('CrearFaltaUnoCtrl', function($scope, $ionicModal){
     
     $scope.submit = function() {
         
-        if(!$scope.partido.firstname) {
-          alert('Info required');
-          return;
-        }
+//        if(!$scope.partido.firstname) {
+//          alert('Info required');
+//          return;
+//        }
+//        
+//        $scope.showForm = false;
+//        $scope.partidos.push($scope.partido);
+        $ionicLoading.show({
+            template: 'Guardando...'
+        });
+
+        Partidos.nuevoPartido($scope.partido)
+                    .success(function(data, status, headers, config){
+                        $ionicLoading.hide();
+                        console.log(data);
+                        $ionicPopup.alert({
+                            title: 'Partido!',
+                            template: 'Se guardó correctamente!'
+                       });
+                    })
+                    .error(function(data, status, headers, config){
+                        $ionicLoading.hide();
+                        $ionicPopup.alert({
+                            title: 'Partido!',
+                            template: 'Ocurrió un error!'
+                       });
+                        console.log("Error", data);
+                    });
         
-        $scope.showForm = false;
-        $scope.partidos.push($scope.partido);
+        Partidos.traerTodos()
+        .success(function(data, status, headers, config){
+            $ionicLoading.hide();
+            console.log("Ok - GET", data);
+        })
+        .error(function(data, status, headers, config){
+            $ionicLoading.hide();
+            console.log("Error - GET", data);
+        });
     };
         
     $scope.onChangeAdress = function(){
