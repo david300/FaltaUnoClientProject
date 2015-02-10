@@ -5,7 +5,15 @@ allServices
 .factory('Partidos', ['$http', function($http){
     return {
         nuevoPartido: function(partido) {
-            return $http.post(urlBase + "partidos/add", partido);
+            return $http({
+                    url: urlBase + "partidos/add", 
+                    data: JSON.stringify(partido),
+                    dataType: "json",
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
         },
         traerTodos: function(){
             return $http.get(urlBase + "partidos/get");

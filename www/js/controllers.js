@@ -34,13 +34,6 @@ allApp
 
 })
 
-
-
-.controller('FindInMapCtrl', function($scope){
-    console.log("paso por acá");
-    
-})
-
 .directive('googlePlaces', function(){
     return {
         restrict:'E',
@@ -171,7 +164,7 @@ allApp
                     });
                 }
               
-                $ionicLoading.hide();
+                //$ionicLoading.hide();
             }
 
             navigator.geolocation.getCurrentPosition(function(pos) {

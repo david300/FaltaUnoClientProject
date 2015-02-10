@@ -1,4 +1,4 @@
-allApp.controller('CrearFaltaUnoCtrl', function($scope, $ionicModal, $ionicPopup, $ionicLoading, Partidos){
+allApp.controller('CrearFaltaUnoCtrl', function($scope, $state, $ionicModal, $ionicPopup, $ionicLoading, Partidos){
     
     if($scope.partido == undefined){
         $scope.partido = {
@@ -27,15 +27,8 @@ allApp.controller('CrearFaltaUnoCtrl', function($scope, $ionicModal, $ionicPopup
         soyYo: true,
     };
     
-    $scope.submit = function() {
-        
-//        if(!$scope.partido.firstname) {
-//          alert('Info required');
-//          return;
-//        }
-//        
-//        $scope.showForm = false;
-//        $scope.partidos.push($scope.partido);
+    $scope.submitPartido = function() {
+
         $ionicLoading.show({
             template: 'Guardando...'
         });
@@ -44,10 +37,17 @@ allApp.controller('CrearFaltaUnoCtrl', function($scope, $ionicModal, $ionicPopup
                     .success(function(data, status, headers, config){
                         $ionicLoading.hide();
                         console.log(data);
-                        $ionicPopup.alert({
-                            title: 'Partido!',
-                            template: 'Se guardó correctamente!'
-                       });
+            
+                        var alertPopup = 
+                            $ionicPopup.alert({
+                                title: 'Partido Creado',
+                                template: '¡Tu partido se creó correctamente!'
+                            });
+            
+                            alertPopup.then(function(res) {
+                                $state.go("tab.dash");
+                            });
+
                     })
                     .error(function(data, status, headers, config){
                         $ionicLoading.hide();
@@ -57,16 +57,6 @@ allApp.controller('CrearFaltaUnoCtrl', function($scope, $ionicModal, $ionicPopup
                        });
                         console.log("Error", data);
                     });
-        
-        Partidos.traerTodos()
-        .success(function(data, status, headers, config){
-            $ionicLoading.hide();
-            console.log("Ok - GET", data);
-        })
-        .error(function(data, status, headers, config){
-            $ionicLoading.hide();
-            console.log("Error - GET", data);
-        });
     };
         
     $scope.onChangeAdress = function(){

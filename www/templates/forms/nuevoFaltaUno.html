@@ -4,7 +4,7 @@
           
           <div class="item item-divider">Datos de Contacto</div>
           <ion-toggle ng-model="partido.soyYo" checked>
-              A mi
+              Me contactan a mi
           </ion-toggle>
           <div ng-hide="partido.soyYo">
               <label class="item item-input">
@@ -33,6 +33,8 @@
               </select>
           </label>
           
+          
+          
           <label class="item item-input item-select">
               <div class="input-label">
                   ¿Cuantos Faltan?
@@ -44,47 +46,28 @@
 
           </label>
           
+          <div class="item item-divider">¿Cuando es?</div>
+          
           <label class="item item-input item-date">
               <div class="input-label" style="padding:16px;">
-                  ¿Cuando?
+                  Día
               </div>
               <input type="date" 
                      ng-model="partido.fechaPartido" 
                      value="{{partido.fecha}}"
                      placeholder="dd-MM-yyyy"
                      />
-              {{ partido.fecha | date: "dd-MM-yyyy" }}
-              <input type="time" ng-model="partido.hora" value="{{partido.hora}}"/>
-<!--
-              <ion-list data-tap-disabled="true" style="float:left;">
-                  <input type="button" 
-                         pick-a-date="partido.fecha" 
-                         placeholder="Seleccione Fecha" 
-                         pick-a-date-options="{ format: 'dd-mm-yyyy' }" 
-                         style="width: 40%; float:left;"  /> {{ partido.fecha }}
-                  
-                  <input type="text" 
-                         pick-a-time="partido.hora" 
-                         placeholder="Seleccione Hora" 
-                         pick-a-time-options="options" 
-                         style="width: 40%;float:left;" /> {{ partido.hora }}
-                  
-              </ion-list>
--->
+
           </label>
           
-<!--
-          <label class="item item-input item-select">
-              <div class="input-label">
-                  ¿Cuando es?
+          <label class="item item-input item-date">
+              <div class="input-label" style="padding:16px;">
+                  Hora
               </div>
-              <select ng-model="partido.tipoCancha">
-                  <option ng-value="5" selected>Cancha de 5</option>
-                  <option ng-value="7">Cancha de 7</option>
-                  <option ng-value="11">Cancha de 11</option>
-              </select>
+              
+              <input type="time" ng-model="partido.hora" value="{{partido.hora}}"/>
+
           </label>
--->
 
           
           <div class="item item-divider">¿Donde Queda?</div>
@@ -100,14 +83,16 @@
           </div>
           
           <div class="padding">
-              <button class="button button-block" ng-click="submit()">Checkin</button>
+              <button class="button button-block" ng-click="submitPartido()">Aceptar</button>
           </div>
       </form>
 
 
+<!--
       <div ng-show="showForm">
           <pre ng-bind="partido | json"></pre> 
           <a href="#/event/partidos">View partidos</a>
       </div>
+-->
   </ion-content>
 </ion-view>
